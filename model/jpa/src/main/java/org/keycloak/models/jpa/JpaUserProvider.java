@@ -795,7 +795,7 @@ public class JpaUserProvider implements UserProvider.Streams, UserCredentialStor
                     orPredicates.add(builder.equal((root.get(EMAIL)), value.toLowerCase()));
                     orPredicates.add(builder.equal(
                             (builder.concat(builder.concat(
-                                            builder.coalesce(root.get(FIRST_NAME), builder.literal("")), " "),
+                                    builder.coalesce(root.get(FIRST_NAME), builder.literal("")), " "),
                                     builder.coalesce(root.get(LAST_NAME), builder.literal("")))),
                             value.toLowerCase()));
 
