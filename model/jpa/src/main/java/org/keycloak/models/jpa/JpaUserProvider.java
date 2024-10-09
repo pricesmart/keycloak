@@ -785,19 +785,19 @@ public class JpaUserProvider implements UserProvider.Streams, UserCredentialStor
             if (value == null) {
                 continue;
             }
-
+            //modified query builder from wildcard use to exact match
             switch (key) {
                 case UserModel.SEARCH:
                     List<Predicate> orPredicates = new ArrayList();
 
                     orPredicates
-                            .add(builder.like(builder.lower(root.get(USERNAME)), "%" + value.toLowerCase() + "%"));
-                    orPredicates.add(builder.like(builder.lower(root.get(EMAIL)), "%" + value.toLowerCase() + "%"));
-                    orPredicates.add(builder.like(
-                            builder.lower(builder.concat(builder.concat(
-                                    builder.coalesce(root.get(FIRST_NAME), builder.literal("")), " "),
+                            .add(builder.equal((root.get(USERNAME)), value.toLowerCase()));
+                    orPredicates.add(builder.equal((root.get(EMAIL)), value.toLowerCase()));
+                    orPredicates.add(builder.equal(
+                            (builder.concat(builder.concat(
+                                            builder.coalesce(root.get(FIRST_NAME), builder.literal("")), " "),
                                     builder.coalesce(root.get(LAST_NAME), builder.literal("")))),
-                            "%" + value.toLowerCase() + "%"));
+                            value.toLowerCase()));
 
                     predicates.add(builder.or(orPredicates.toArray(new Predicate[orPredicates.size()])));
 
