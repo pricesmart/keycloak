@@ -163,6 +163,5 @@ public class JPAScopeStore implements ScopeStore {
             list.add(provider.getStoreFactory().getScopeStore().findById((String)id, resourceServerId));
         }
         return list;
-
     }
 }
