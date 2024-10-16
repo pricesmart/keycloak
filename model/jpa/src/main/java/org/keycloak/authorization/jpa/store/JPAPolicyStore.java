@@ -174,11 +174,11 @@ public class JPAPolicyStore implements PolicyStore {
                     }
 
                     predicates.add(root.joinMap("config").key().in(value[0]));
-                    predicates.add(builder.like(root.joinMap("config").value().as(String.class), "%" + value[1] + "%"));
+                    predicates.add(builder.like(root.joinMap("config").value().as(String.class), value[1]));
                     break;
                 case TYPE:
                 case NAME:
-                    predicates.add(builder.like(builder.lower(root.get(filterOption.getName())), "%" + value[0].toLowerCase() + "%"));
+                    predicates.add(builder.equal((root.get(filterOption.getName())), value[0].toLowerCase()));
                     break;
                 default:
                     throw new IllegalArgumentException("Unsupported filter [" + filterOption + "]");

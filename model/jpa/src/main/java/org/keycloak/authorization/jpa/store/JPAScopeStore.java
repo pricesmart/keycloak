@@ -146,7 +146,7 @@ public class JPAScopeStore implements ScopeStore {
                     predicates.add(root.get(filterOption.getName()).in(value));
                     break;
                 case NAME:
-                    predicates.add(builder.like(builder.lower(root.get(filterOption.getName())), "%" + value[0].toLowerCase() + "%"));
+                    predicates.add(builder.equal((root.get(filterOption.getName())), value[0].toLowerCase()));
                     break;
                 default:
                     throw new IllegalArgumentException("Unsupported filter [" + filterOption + "]");

@@ -205,7 +205,7 @@ public class JPAResourceStore implements ResourceStore {
                     predicates.add(builder.equal(root.get(filterOption.getName()), Boolean.valueOf(value[0])));
                     break;
                 case URI:
-                    predicates.add(builder.lower(root.join("uris")).in(value[0].toLowerCase()));
+                    predicates.add((root.join("uris")).in(value[0].toLowerCase()));
                     break;
                 case URI_NOT_NULL:
                     // predicates.add(builder.isNotEmpty(root.get("uris"))); looks like there is a bug in hibernate and this line doesn't work: https://hibernate.atlassian.net/browse/HHH-6686
@@ -215,10 +215,10 @@ public class JPAResourceStore implements ResourceStore {
                     break;
                 case NAME:
                 case TYPE:
-                    predicates.add(builder.like(builder.lower(root.get(filterOption.getName())), "%" + value[0].toLowerCase() + "%"));
+                    predicates.add(builder.equal((root.get(filterOption.getName())), value[0].toLowerCase()));
                     break;
                 case EXACT_NAME:
-                    predicates.add(builder.equal(builder.lower(root.get(filterOption.getName())), value[0].toLowerCase()));
+                    predicates.add(builder.equal((root.get(filterOption.getName())), value[0].toLowerCase()));
                     break;
                 default:
                     throw new IllegalArgumentException("Unsupported filter [" + filterOption + "]");
